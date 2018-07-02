@@ -71,23 +71,7 @@ var panDest = halfY;
 var harpY = halfY;
 var harpDest = halfY;
 
-// TWEENING //
-var panEase = 50;
-var panSpeed = 50;
-var consoleEase = 50;
-var consoleSpeed = 50;
-var harpEase = 50;
-var harpSpeed = 50;
-var titleEase = 50;
-var titleSpeed = 50;
 
-
-// CAMERA //
-var titleY = 0;
-var titleDest = 0;
-var textA = 1;
-var textADest = 1;
-var zoomLevel = 1;
 
 
 // ROLLOVERS / CONTROLS //
@@ -267,6 +251,11 @@ var leadStepCount = 0;
 
 var leadLastNote = 5;
 var leadLastOctave = 12;
+// JavaScript Document
+
+//-------------------------------------------------------------------------------------------
+//  INITIALISE SOUND
+//-------------------------------------------------------------------------------------------
 
 
 function soundSetup() {
@@ -394,14 +383,14 @@ function soundSetup() {
 	leadGainL = acx.createGain();
 	leadGainR = acx.createGain();
 
-	leadFilter.frequency.value = 1100 ;
+	leadFilter.frequency.value = 1100 + (drumLevel*1000);
 	leadEchoFilter.frequency.value = 800 + (drumLevel*1000);
-	leadEchoL.delayTime.value = ((60/bpm)*0);
-	leadEchoR.delayTime.value = ((60/bpm)*0);
+	leadEchoL.delayTime.value = ((60/bpm)*0.5);
+	leadEchoR.delayTime.value = ((60/bpm)*1);
 	leadPanL.setPosition(-1,0,0);
 	leadPanR.setPosition(1,0,0);
-	leadGainL.gain.value = delayLevel*0;
-	leadGainR.gain.value = delayLevel*0;
+	leadGainL.gain.value = delayLevel*0.8;
+	leadGainR.gain.value = delayLevel*0.5;
 
 	leadFilter.connect(leadMod);
 	leadMod.connect(mainDest);
@@ -545,20 +534,20 @@ function soundSetup() {
 	setInterval(function() {
 
 		var now = acx.currentTime;
-		leadMod.gain.cancelScheduledValues(100, 50 );
-		leadMod.gain.setValueAtTime(100, 50);
+		leadMod.gain.cancelScheduledValues( now );
+		leadMod.gain.setValueAtTime(masterGain*2, now);
 
-		leadMod.gain.linearRampToValueAtTime(100, 50);
-		leadMod.gain.linearRampToValueAtTime(100, 50);
+		leadMod.gain.linearRampToValueAtTime(masterGain*1, now+0.09);
+		leadMod.gain.linearRampToValueAtTime(masterGain*2, now+0.18);
 
 
-	},
-	 2000);
+	}, 200);
 
 	playPad(padGain,pad,pad2);
 	soundLoop();
 
 }
+
 
 var paused= false;
 //-------------------------------------------------------------------------------------------
@@ -566,28 +555,29 @@ var paused= false;
 //-------------------------------------------------------------------------------------------
 function soundLoop() {
 
-	if (scene==mainScene) {
+
 
 		if (paused==false) {
+
 			playBass();
 			playLead8();
-			 playPerc();
-			playDrum();
-		 playHarm();
-			if (beatCount==4||beatCount==12) {
-				swayDir = 2;
-				swayTo(1 + (drumLevel*4) + (Math.random()*2),30*(bpm/120),1);
-
-			}
-			if (beatCount==0||beatCount==8) {
-				swayDir = 1;
-				swayTo(-1 - (drumLevel*4) - (Math.random()*2),30*(bpm/120),1);
-			}
+			    // playPerc();
+			    // playDrum();
+		    //playHarm();
+			// if (beatCount==4||beatCount==12) {
+			// 	swayDir = 2;
+			// 	swayTo(1 + (drumLevel*4) + (Math.random()*2),30*(bpm/120),1);
+      //
+			// }
+			// if (beatCount==0||beatCount==8) {
+			// 	swayDir = 1;
+			// 	swayTo(-1 - (drumLevel*4) - (Math.random()*2),30*(bpm/120),1);
+			// }
 
 			beatCount += 1;
 			if (beatCount==16) {
 				if (firstTime==false) {
-				    generateScene();
+				   // generateScene();
 					if (startCounter<100) {
 					    startCounter+= 1;
 					}
@@ -596,7 +586,7 @@ function soundLoop() {
 			}
 			firstTime = false;
 		}
-	}
+
 
 	setTimeout(soundLoop,((60/bpm)*0.5)*1000);
 
@@ -1162,7 +1152,8 @@ function playLead8() {
 	    thisInt = thisKey + thisOctave + thisScale[thisRand];
 		freq = Math.pow(2,(thisInt/12))*440;
 		leadNote(freq);
-		console.log(freq)
+
+
 	}
 
 	// END BAR RESET
@@ -1384,7 +1375,7 @@ function playHarm() {
 function playPad(g,o,o2) {
 
 	if (paused==false) {
-		thisKey = midC -1;
+		thisKey = midC -9;
 		thisOctave = (Math.round(Math.random()*1))*12;
 		intRand = Math.floor(Math.random()*7)
 		thisInt = thisKey + thisOctave + note[intRand];
