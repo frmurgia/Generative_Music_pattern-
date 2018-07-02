@@ -1370,12 +1370,10 @@ function playHarm() {
 	}
 }
 
-
-
 function playPad(g,o,o2) {
 
-	if (paused==false) {
-		thisKey = midC -9;
+	if (paused==true) {
+		thisKey = midC -30;
 		thisOctave = (Math.round(Math.random()*1))*12;
 		intRand = Math.floor(Math.random()*7)
 		thisInt = thisKey + thisOctave + note[intRand];
@@ -1431,6 +1429,7 @@ function playDrum() {
 
 function panPlay(p) {
 
+
 	clearTimeout(panTimer[p]);
 
 	thisKey = midC + 11;
@@ -1439,13 +1438,12 @@ function panPlay(p) {
 	freq = Math.pow(2,(thisInt/12))*440;
 	freq2 = Math.pow(2,(thisInt2/12))*440;
 	panNote(freq,freq2,p);
-
+console.log(freq)
 
 	panTimer[p] = setTimeout(function(){
         panOn[p] = false;
 	},((60/bpm)*2.6)*1000);
 }
-
 
 function harpSetFreq(p) {
 	thisKey = midC + 11;
@@ -1478,3 +1476,4 @@ function silentNote() {
 
 	},1000);
 }
+// JavaScript Document

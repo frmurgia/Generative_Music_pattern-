@@ -3,22 +3,63 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="initial-scale=1, user-scalable=no">
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src=" js/Sound.js"></script>
 
-<script type="text/javascript" src="js/Sound.js"></script>
+<style>
+/* #button{
+  height: 45px;
+   width: 45px;
+   background-color: #bbb;
+   border-radius: 50%;
+   display: inline-block;
+    */
+   .button {
+       display: flex;
+       justify-content: space-between;
+   }
 
+   span.circle {
+     height: 45px;
+     width: 45px;
+     border-radius: 100%;
+     border: 14px solid #eee;
+     background:#ddd;
+     cursor: pointer;
+     transition: all 0.4s ease-in-out;
+   }
 
+</style>
 
 </head>
 <body bgcolor="#242b2b" >
-<body onload="soundSetup()">
+
 
     <canvas id="layerA" class="unselectable"></canvas>
-    <div id="keyLayer" tabindex='1'></div>
+      <div id="keyLayer" tabindex='1'></div>
+
+      <div class="button">
+    <span id="uno" class="border-change circle"></span>
+    <span id="due" class="circle"></span>
+    <span id="tre" class="circle"></span>
+    <span id="quattro" class="circle"></span>
+     <span id="cinque" class="circle"></span>
+</div>
+ 
+
 
 <script>
+soundSetup()
 
+$('#uno').on('touchstart click', function(){panPlay(0) });
+$('#due').on('touchstart click', function(){panPlay(1) });
+$('#tre').on('touchstart click', function(){panPlay(2) });
+$('#quattro').on('touchstart click', function(){panPlay(3) });
+$('#cinque').on('touchstart click', function(){panPlay(4) });
 
-    soundSetup()
 </script>
 </body>
 </html>
