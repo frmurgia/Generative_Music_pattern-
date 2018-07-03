@@ -8,7 +8,7 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script type="text/javascript" src=" js/Sound.js"></script>
-
+ <script src='js/zingtouch.min.js'></script>
 <style>
 /* #button{
   height: 45px;
@@ -32,6 +32,81 @@
      transition: all 0.4s ease-in-out;
    }
 
+
+
+
+
+
+
+
+
+   *{
+     box-sizing: border-box;
+   }
+
+   body {
+     margin: 0;
+     padding: 0;
+     height: 100vh;
+     font-family: 'Helvetica', Arial;
+   }
+
+   #output {
+     background-color: #3B3B3B;
+     width: 100%;
+     display: block;
+     min-height: 30px;
+     padding: 10px;
+     font-size: 0.8em;
+     color: white;
+   }
+   #wrapper {
+     display: flex;
+     flex-direction: column;
+     height: 100%;
+   }
+
+   #tap-container{
+     display: flex;
+     flex-direction:column;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+     height: 100%;
+   /*   color: white; */
+     cursor: pointer;
+   }
+
+   .tap-area {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     cursor: pointer;
+     font-size: 3rem;
+
+     color: white;
+     padding: 10px 20px;
+     margin: 0 0 7px;
+     outline: none;
+     position: relative;
+     border: 0px;
+     width: 100%;
+     height: 50%;
+     text-align: center;
+   }
+   .orange {
+     background-color:#80D8FF;
+   }
+
+   .seafoam {
+     background-color:#00B0FF;
+   }
+
+   /* .tap-area:active {
+     margin: 7px 0 0;
+     box-shadow: 0 0 #0052E0, 0 0 #2f2f2f, 0 3px 14px #FF3020 inset;
+   } */
+
 </style>
 
 </head>
@@ -48,17 +123,82 @@
     <span id="quattro" class="circle"></span>
      <span id="cinque" class="circle"></span>
 </div>
- 
 
 
 <script>
 soundSetup()
-
+//
 $('#uno').on('touchstart click', function(){panPlay(0) });
-$('#due').on('touchstart click', function(){panPlay(1) });
-$('#tre').on('touchstart click', function(){panPlay(2) });
-$('#quattro').on('touchstart click', function(){panPlay(3) });
-$('#cinque').on('touchstart click', function(){panPlay(4) });
+// $('#due').on('touchstart click', function(){panPlay(1) });
+// $('#tre').on('touchstart click', function(){panPlay(2) });
+// $('#quattro').on('touchstart click', function(){panPlay(3) });
+// $('#cinque').on('touchstart click', function(){panPlay(4) });
+//
+//
+//
+//
+
+
+
+
+
+
+
+var tapElementOne = document.getElementById('uno');
+var regionOne = new ZingTouch.Region(tapElementOne, true, false);
+var longTap = new ZingTouch.Tap({
+ maxDelay: 1000
+})
+regionOne.bind(tapElementOne, longTap, function(e){
+  console.log("sdhfsdkjfhdjslfhsdljkfh")
+ var textElement = document.getElementById('uno');
+ textElement.innerHTML = "Tapped!";
+ setOutput([
+    panPlay(0)
+ ]);
+
+ (function(element){
+   setTimeout(function(){
+     element.innerHTML = "One Finger Tap";
+   }, 1000);
+ })(textElement);
+})
+
+
+var tapElementTwo = document.getElementById('two');
+var TwoFingerTap = new ZingTouch.Tap({
+ numInputs: 2,
+ maxDelay: 1000
+});
+
+var regionTwo = new ZingTouch.Region(tapElementTwo, true, false);
+regionTwo.bind(tapElementTwo, TwoFingerTap, function(e){
+ setOutput([
+   ['Gesture', 'Tap'],
+   ['inputs' , '2'],
+   ['interval', Math.floor(e.detail.interval) + "ms"]
+ ]);
+
+ var textElement = document.getElementById('two');
+ textElement.innerHTML = "Tapped!";
+ (function(element){
+   setTimeout(function(){
+     element.innerHTML = "Two Finger Tap";
+   }, 1000);
+ })(textElement);
+})
+
+
+function setOutput(data){
+ console.log('here');
+
+ var outputStr = "> ";
+ for (var i = 0; i < data.length; i++){
+   outputStr += data[i][0] + ": " + data[i][1] + ((i===data.length-1) ? '' : ' , ');
+ }
+ var output = document.getElementById('output');
+ output.innerHTML = outputStr;
+}
 
 </script>
 </body>

@@ -1,25 +1,17 @@
-// JavaScript Document
+ // JavaScript Document
 
 //-------------------------------------------------------------------------------------------
 //  INITIALISE SOUND
 //-------------------------------------------------------------------------------------------
 
-
-// INIT //
-var canvasA;
 var cxa;
-var FPS = 30;
+var canvasA;
 
 var acx;
 var bpm = 110;
 var paused = true;
-var firstTime = true;
-var scene = 0;
-var mainScene = 3;
-var titleIn = 100;
-var titleOut = 100;
-var titleOutYes = 0;
-var introAlpha = 100;
+
+
 var startCounter = 0;
 var mode = 2;
 
@@ -46,55 +38,6 @@ var font1 = "Georgia";
 var font1 = "Lora";
 
 
-// MEASUREMENT //
-var halfX = 0;
-var halfY = 0;
-var fullX = 0;
-var fullY = 0;
-var units = 0;
-var unitOne = 0;
-var headerType = 40;
-var menuType = 18;
-var midType = 26;
-var bodyType = 12;
-var dx = 0;
-var dy = fullY;
-var sx = 0;
-var sy = 0;
-var grd = 30;
-var yOff = 0;
-
-var consoleY = fullY;
-var consoleDest = fullY;
-var panY = halfY;
-var panDest = halfY;
-var harpY = halfY;
-var harpDest = halfY;
-
-
-
-
-// ROLLOVERS / CONTROLS //
-var touchTakeover = false;
-var touch;
-var touchCounter = 0;
-
-var wvOver = false;
-var fbOver = false;
-var twitterOver = false;
-var pauseOver = false;
-var infoOver = false;
-var consoleOver = false;
-var consoleQuitOver = false;
-var drumGainOver = false;
-var bpmSetOver = false;
-var fullScreenOver = false;
-var thisFineOver = false;
-
-
-var panBtnOver = false;
-var harpBtnOver = false;
-
 var panOver = [false,false,false,false,false,false,false];
 var panOn = [false,false,false,false,false,false,false];
 var panTimer = [];
@@ -119,72 +62,6 @@ var harpD = [];
 var harpG = [];
 var harpCount = 0;
 
-// DRUM & TEMPO DIALS //
-var drumGainX = 0;
-var drumGainDragging = false;
-var drumGainDrag = 0;
-var drumGainStart = 0;
-
-var bpmSetX = 0;
-var bpmSetDragging = false;
-var bpmSetDrag = 0;
-var bpmSetStart = 0;
-
-
-var roll = [false];
-var mouseX = 0;
-var mouseY = 0;
-var mox = 0;
-var moy = 0;
-var mouseIsDown = false;
-var mouseHold = false;
-var canPress = true;
-
-
-
-// VISUALS //
-var ground1 = [];
-var ground2 = [];
-
-var bgSky = [];
-var bgDiamond = [];
-var bgDiamond2 = [];
-
-var canopyStyle = 1;
-var foreGroundStyle = 0;
-var canopyCol = 1;
-var clusters = [];
-
-var bgPlant = [];
-var tree1 = [];
-var tree2 = [];
-var diamond1 = [];
-var diamond2 = [];
-var plant1 = [];
-var plant2 = [];
-var flower1 = [];
-var vine1 = [];
-var vine2 = [];
-var vine3 = [];
-var vine4 = [];
-var palm = [];
-var palm2 = [];
-var broad1 = [];
-var broad2 = [];
-var animal = [];
-var dangle = [];
-
-var dangleCol = 0;
-var vineDest = 0;
-
-var sway = 0;
-var swayFrame = 40;
-var swayCount = 39;
-var swaySmooth = 0;
-var swayDir = 1;
-var swaySpeed = 0;
-var swayDest = 0;
-
 
 
 // SOUND //
@@ -202,7 +79,7 @@ var minor2 = [-2,0,3,5,7 ,8, 10,12];
 var minor3 = [0,2,3,5,7,3,10,12];
 var harmony = [2,3,7,8,10,12,14,15];
 var fifth = [5,7,10,12,14,15,17,19];
-var panScale = [0,3,12,7,10,-2,2];
+var panScale = [0,2,12,7,10,-2,2];
 var panHarm = [7,10,17,12,15,5,10];
 var harpScale = [0,2,3,5,7,8,10,12,14,15,17,19,20,22,24];
 
@@ -232,13 +109,10 @@ var bassSelectLast = 0;
 var bassSelectCount = 0;
 var bassHarmVol = 0.2 + Math.random()*0.1;
 var bassHarmVolDest = bassHarmVol;
-var drum8 = [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0];
-var countDrum = 0;
 
 var mainDest = "";
 
 var delayLevel = 0;
-var drumLevel = 0;
 
 var starting = true;
 var breaking = false;
@@ -251,7 +125,7 @@ var leadStepCount = 0;
 
 var leadLastNote = 5;
 var leadLastOctave = 12;
-// JavaScript Document
+
 
 //-------------------------------------------------------------------------------------------
 //  INITIALISE SOUND
@@ -265,13 +139,13 @@ function soundSetup() {
 	  acx = new AudioContext();
 	}
 	catch(e) {
-	  alert('Web Audio API is not supported in this browser');
+	  alert('Web Audio API non supportato');
 	}
 
 
 
-	masterGain = 0.26;
-	drumLevel = 0.01;
+	masterGain = 0.23;
+
 	bpm = 110;
 
 
@@ -296,80 +170,8 @@ function soundSetup() {
 
 	mainDest = lows;
 
-	drumMaster = acx.createGain();
-	drumMaster.connect(mainDest);
-	drumMaster.gain.value = drumLevel;
 
 
-	// CREATE NOISE //
-	var buffer = acx.createBuffer(1, 8192, 22050);
-	var data = buffer.getChannelData(0);
-	for (i = 0; i < data.length; i++) {
-		data[i] = (Math.random() - 0.5) * 2; // Noise
-	}
-
-
-	noiseDest = drumMaster;
-	noiseF = 2700;
-	noiseQ = 2;
-
-	// NOISE 1 //
-	noise = acx.createBufferSource();
-	noiseGain = acx.createGain();
-	noiseTone = acx.createBiquadFilter();
-	noiseFilter = acx.createBiquadFilter();
-
-	noise.loop = true;
-	noise.buffer = buffer;
-
-	noise.connect(noiseTone);
-	noiseTone.connect(noiseGain);
-	noiseGain.connect(noiseFilter);
-	noiseFilter.connect(noiseDest);
-	noiseTone.frequency.value = noiseF;
-	noiseTone.Q.value = noiseQ;
-	noiseGain.gain.value = 0;
-	noise.start(0);
-
-	// NOISE 2 //
-	noise2 = acx.createBufferSource();
-	noiseGain2 = acx.createGain();
-	noiseTone2 = acx.createBiquadFilter();
-	noiseFilter2 = acx.createBiquadFilter();
-
-	noise2.loop = true;
-	noise2.buffer = buffer;
-
-	noise2.connect(noiseTone2);
-	noiseTone2.connect(noiseGain2);
-	noiseGain2.connect(noiseFilter2);
-	noiseFilter2.connect(noiseDest);
-	noiseTone2.frequency.value = noiseF;
-	noiseTone2.Q.value = noiseQ;
-	noiseGain2.gain.value = 0;
-	noise2.start(0);
-
-
-	// NOISE 3 //
-	noise3 = acx.createBufferSource();
-	noiseGain3 = acx.createGain();
-	noiseTone3 = acx.createBiquadFilter();
-	noiseFilter3 = acx.createBiquadFilter();
-
-	noise3.loop = true;
-	noise3.buffer = buffer;
-
-	noise3.connect(noiseTone3);
-	noiseTone3.connect(noiseGain3);
-	noiseGain3.connect(noiseFilter3);
-	noiseFilter3.connect(noiseDest);
-	noiseTone3.frequency.value = noiseF;
-	noiseTone3.Q.value = noiseQ;
-	noiseGain3.gain.value = 0;
-	noise3.start(0);
-
-	noiseFilter2.frequency.value = 1269;
-	noiseFilter3.frequency.value = 2323;
 
 
 	// LEAD //
@@ -383,8 +185,8 @@ function soundSetup() {
 	leadGainL = acx.createGain();
 	leadGainR = acx.createGain();
 
-	leadFilter.frequency.value = 1100 + (drumLevel*1000);
-	leadEchoFilter.frequency.value = 800 + (drumLevel*1000);
+	leadFilter.frequency.value = 1100 + (0.2*1000);
+	leadEchoFilter.frequency.value = 800 + (0.2*1000);
 	leadEchoL.delayTime.value = ((60/bpm)*0.5);
 	leadEchoR.delayTime.value = ((60/bpm)*1);
 	leadPanL.setPosition(-1,0,0);
@@ -403,40 +205,16 @@ function soundSetup() {
 	leadEchoL.connect(leadPanL);
 	leadEchoR.connect(leadPanR);
 
-
-	// DRUMS //
-	drumFilter = acx.createBiquadFilter();
-	drumFilter.type = 5;
-	drumFilter.gain.value = 20;
-	drumFilter.frequency.value = 60;
-
-	drumFilter2 = acx.createBiquadFilter();
-	drumFilter2.type = 5;
-	drumFilter2.gain.value = 28;
-	drumFilter2.frequency.value = 4900;
-
-	drumFilter.connect(drumFilter2);
-	drumFilter2.connect(drumMaster);
-
-
-	// PERC //
-	percHiss = acx.createBiquadFilter();
-	percHiss.type = 5;
-	percHiss.gain.value = 10;
-	percHiss.frequency.value = 4500;
-	percHiss.connect(drumMaster);
-
-
 	// BASS //
 	bassFilter = acx.createBiquadFilter();
 	bassFilter2 = acx.createBiquadFilter();
 
-	bassFilter.frequency.value = 1000 + (drumLevel*1000);
+	bassFilter.frequency.value = 1000 + (0.2*1000);
 	bassFilter.connect(bassFilter2);
 
 	bassFilter2.connect(mainDest);
 	bassFilter2.type = 5;
-	bassFilter2.gain.value = (drumLevel*10);
+	bassFilter2.gain.value = (0.2*10);
 	bassFilter2.frequency.value = 400;
 
 
@@ -444,7 +222,7 @@ function soundSetup() {
 	panFilter = acx.createBiquadFilter();
 	panFilter.connect(mainDest);
 	panFilter.Q.value = 5;
-	panFilter.frequency.value = 900 + (drumLevel*1000);
+	panFilter.frequency.value = 900 + (0.2*1000);
 
 	panL = acx.createPanner();
 	panR = acx.createPanner();
@@ -456,7 +234,7 @@ function soundSetup() {
 	// HARP //
 	harpFilter = acx.createBiquadFilter();
 	harpFilter.connect(mainDest);
-	harpFilter.frequency.value = 1500 + (drumLevel*1000);
+	harpFilter.frequency.value = 1500 + (0.2*1000);
 
 	harpL = acx.createPanner();
 	harpL.connect(harpFilter);
@@ -485,7 +263,7 @@ function soundSetup() {
 
 	// HARMONY //
 	harmFilter = acx.createBiquadFilter();
-	harmFilter.frequency.value = ((800/10)*harmFreq) + (drumLevel*500);
+	harmFilter.frequency.value = ((800/10)*harmFreq) + (0.2*500);
 
 	holdFilter = acx.createBiquadFilter();
 	holdFilter.type = 5;
@@ -543,7 +321,6 @@ function soundSetup() {
 
 	}, 200);
 
-	playPad(padGain,pad,pad2);
 	soundLoop();
 
 }
@@ -557,27 +334,19 @@ function soundLoop() {
 
 
 
+
 		if (paused==false) {
 
-			playBass();
+		playBass();
 			playLead8();
-			    // playPerc();
-			    // playDrum();
-		    //playHarm();
-			// if (beatCount==4||beatCount==12) {
-			// 	swayDir = 2;
-			// 	swayTo(1 + (drumLevel*4) + (Math.random()*2),30*(bpm/120),1);
-      //
-			// }
-			// if (beatCount==0||beatCount==8) {
-			// 	swayDir = 1;
-			// 	swayTo(-1 - (drumLevel*4) - (Math.random()*2),30*(bpm/120),1);
-			// }
+	playHarm();
+
+
 
 			beatCount += 1;
 			if (beatCount==16) {
 				if (firstTime==false) {
-				   // generateScene();
+
 					if (startCounter<100) {
 					    startCounter+= 1;
 					}
@@ -617,14 +386,7 @@ function startTone(mode,length1,o,g,d) {
 
 		length = ((60/bpm)*4.6)*1000;
 	}
-	// PERC
-	else if (mode==2) {
-		g.gain.linearRampToValueAtTime(masterGain*0.6, now + 0.05);
-		g.gain.linearRampToValueAtTime(masterGain*0.5, now + ((60/bpm)*0.25));
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*0.3));
 
-		length = ((60/bpm)*3)*1000;
-	}
 	// BASS
 	else if (mode==3) {
 		g.gain.linearRampToValueAtTime(masterGain*1.1, now + 0.03);
@@ -648,43 +410,9 @@ function startTone(mode,length1,o,g,d) {
 
 		length = ((60/bpm)*5.6)*1000;
 	}
-	// DRUM
-	else if (mode==5) {
-		g.gain.linearRampToValueAtTime(masterGain*1.0, now + 0.03);
-		g.gain.linearRampToValueAtTime(masterGain*0.5, now + 0.2);
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*2));
-		o.frequency.linearRampToValueAtTime(f-50,now + ((60/bpm)*2));
 
-		length = ((60/bpm)*2.1)*1000;
-	}
-	// DRUM2
-	else if (mode==6) {
-		g.gain.linearRampToValueAtTime(masterGain*1.0, now + 0.03);
-		g.gain.linearRampToValueAtTime(masterGain*0.2, now + 0.2);
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*1));
-		o.frequency.linearRampToValueAtTime(f-25,now + ((60/bpm)*1));
 
-		length = ((60/bpm)*1.1)*1000;
-	}
-	// PERC HISS
-	else if (mode==7) {
-		g.gain.linearRampToValueAtTime(masterGain*1.0, now + 0.03);
-		g.gain.linearRampToValueAtTime(masterGain*0.9, now + ((60/bpm)*0.20));
-		g.gain.linearRampToValueAtTime(masterGain*0.2, now + ((60/bpm)*0.25));
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*2));
-		o.frequency.linearRampToValueAtTime(f - 8,now + ((60/bpm)*0.25));
-		o.frequency.linearRampToValueAtTime(f,now + ((60/bpm)*2));
 
-		length = ((60/bpm)*2.1)*1000;
-	}
-	// DRUM3
-	else if (mode==8) {
-		g.gain.linearRampToValueAtTime(masterGain*0.08, now + 0.03);
-		g.gain.linearRampToValueAtTime(masterGain*0.02, now + 0.1);
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*1));
-
-		length = ((60/bpm)*1.1)*1000;
-	}
 	// PAN
 	else if (mode==9) {
 		g.gain.linearRampToValueAtTime(masterGain*1.1, now + 0.05);
@@ -705,7 +433,7 @@ function startTone(mode,length1,o,g,d) {
 	}
 	// BASS HARMONY
 	else if (mode==11) {
-		g.gain.linearRampToValueAtTime(masterGain*(bassHarmVol-(drumLevel*0.25)), now + ((60/bpm)*2.5));
+		g.gain.linearRampToValueAtTime(masterGain*(bassHarmVol-(0.2*0.25)), now + ((60/bpm)*2.5));
 		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*5));
 
 		length = ((60/bpm)*5.05)*1000;
@@ -714,36 +442,13 @@ function startTone(mode,length1,o,g,d) {
 
 	setTimeout(function(){
 
-        o.disconnect(); // Disconnect oscillator so it can be picked up by browser's garbage collecter
+        o.disconnect();
 		if (d==true) {
 		    g.disconnect();
 		}
 	},length);
 }
 
-
-function startNoiseGain(mode,g,d,o) {
-
-	d = d || false;
-
-    var now = acx.currentTime;
-    g.gain.cancelScheduledValues( now );
-    g.gain.setValueAtTime(g.gain.value, now);
-
-	// PERC
-	if (mode==1) {
-		g.gain.linearRampToValueAtTime(masterGain*1.0, now + 0.03);
-		g.gain.linearRampToValueAtTime(masterGain*0.9, now + ((60/bpm)*0.25));
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*0.29));
-	}
-	// DRUM
-	else if (mode==2) {
-		g.gain.linearRampToValueAtTime(masterGain*0.8, now + 0.03);
-		g.gain.linearRampToValueAtTime(masterGain*0.3, now + 0.2);
-		g.gain.linearRampToValueAtTime(masterGain*0.1, now + ((60/bpm)*2));
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*3));
-	}
-}
 
 function startHarp(g,o,f) {
     var now = acx.currentTime;
@@ -853,52 +558,6 @@ function bassNote(f,f2,f3,f4,bl) {
 	monoBass = gainNode;
 }
 
-// NOISE PERCUSSION //
-function percNote(f,n) {
-
-	if (drumLevel<0.8) {
-		percOsc = acx.createOscillator();
-		percG = acx.createGain();
-
-		percOsc.connect(percG);
-		percG.connect(mainDest);
-		percG.gain.value = 0;
-
-		percOsc.frequency.value = f;
-		percOsc.type = 3; // square wave
-
-	    percOsc.start(0);
-	    startTone(2,1500,percOsc,percG,true);
-	}
-
-	noiseFilter.frequency.value = n*2;
-	startNoiseGain(1,noiseGain);
-
-}
-
-// DRUMS //
-function drumNote(f) {
-
-	drum = acx.createOscillator();
-	drumGain = acx.createGain();
-
-	drum.connect(drumGain);
-	drumGain.connect(drumFilter);
-	drumGain.gain.value = 0;
-	drum.frequency.value = f;
-	drum.type = 3; // square wave
-	drum.start(0);
-
-	if (countDrum==4||countDrum==12) {
-		startNoiseGain(2,noiseGain3);
-	} else {
-		startNoiseGain(2,noiseGain2);
-	}
-
-	startTone(5,3500,drum,drumGain,true);
-
-}
-
 // DRAG HARMONY //
 function harmNote(f) {
 	harm = acx.createOscillator();
@@ -968,8 +627,6 @@ function panNote(f,n,p) {
 	panOsc3.start(0);
 	startTone(9,1500,panOsc3,panG3,true);
 }
-
-
 
 function harpLoop() {
 	if (harpN!==-10) {
@@ -1351,85 +1008,31 @@ function playBass() {
 	}
 }
 
+
 function playHarm() {
-	if (beatCount==3||beatCount==7||beatCount==11||beatCount==15||harmTimer==7) {
-		if ((mouseHold==true||harmTimer==7) && paused==false) {
-			harmTimer = 6;
+	if (beatCount==3|| beatCount==15) {
+
+
+
 			thisKey = midC -1;
 			thisOctave = 0;
 			thisInt = thisKey + thisOctave + harmony[bassSelect];
 			freq = Math.pow(2,(thisInt/12))*440;
 			harmNote(freq);
-		}
-		if (flickerCount>0) {
-			flickerCount -= 1;
-		}
+
+
 	}
-	if (harmTimer<7 && harmTimer>0) {
-		harmTimer -= 1;
-	}
-}
-
-function playPad(g,o,o2) {
-
-	if (paused==true) {
-		thisKey = midC -30;
-		thisOctave = (Math.round(Math.random()*1))*12;
-		intRand = Math.floor(Math.random()*7)
-		thisInt = thisKey + thisOctave + note[intRand];
-		thisInt2 = thisKey + thisOctave + note[intRand+1];
-		o.frequency.value = Math.pow(2,(thisInt/12))*440;
-		o2.frequency.value = Math.pow(2,(thisInt2/12))*440;
-
-		var now = acx.currentTime;
-		g.gain.setValueAtTime(masterGain*0.0, now + 0.2);
-		g.gain.linearRampToValueAtTime(masterGain*0.9, now + ((60/bpm)*4));
-		g.gain.linearRampToValueAtTime(masterGain*0.0, now + 0.1 + ((60/bpm)*8));
-	}
-
-	setTimeout(function(){
-
-        playPad(padGain,pad,pad2);
-	},8000 + Math.round(Math.random()*2000));
 
 }
 
-function playPerc() {
-	thisKey = midC -25;
-	thisOctave = (-1 + Math.round(Math.random()*1))*12;
-	thisInt2 = thisKey + (thisOctave+24) + note[Math.floor(Math.random()*8)];
-	thisInt = thisKey + thisOctave + note[Math.floor(Math.random()*8)];
-	freq = Math.pow(2,(thisInt/12))*440;
-	noiseFreq = Math.pow(2,(thisInt2/12))*440;
-	percNote(freq,noiseFreq);
-}
 
-function playDrum() {
-	if (drum8[countDrum]==1) {
-
-		if (countDrum==4||countDrum==12) {
-			thisNo = 7;
-		}
-		else {
-			thisNo = 1;
-		}
-
-		thisKey = midC -25;
-		thisOctave = 0;
-		thisInt = thisKey + thisOctave + note[thisNo];
-		freq = Math.pow(2,(thisInt/12))*440;
-		drumNote(freq);
-	}
-
-	countDrum += 1;
-	if (countDrum==16) {
-		countDrum = 0;
+for (i=0;i<7;i++) {
+	if (panOver[i]==true) {
+		panOn[i] = true;
+		panPlay(i);
 	}
 }
-
 function panPlay(p) {
-
-
 	clearTimeout(panTimer[p]);
 
 	thisKey = midC + 11;
@@ -1438,7 +1041,7 @@ function panPlay(p) {
 	freq = Math.pow(2,(thisInt/12))*440;
 	freq2 = Math.pow(2,(thisInt2/12))*440;
 	panNote(freq,freq2,p);
-console.log(freq)
+
 
 	panTimer[p] = setTimeout(function(){
         panOn[p] = false;
@@ -1477,3 +1080,4 @@ function silentNote() {
 	},1000);
 }
 // JavaScript Document
+//-------------------------------------------------------------------------------------------
