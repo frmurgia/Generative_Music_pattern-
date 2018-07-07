@@ -322,7 +322,8 @@ function soundSetup() {
  }, 200);
 
  soundLoop();
-
+ leadFilter.frequency.value =0
+ bassFilter.frequency.value=0
 }
 
 
@@ -544,7 +545,7 @@ function bassNote(f,f2,f3,f4,bl) {
  bassHarm.type = 0; // triangle wave
 
  bassHarm2.frequency.value = f4;
- bassHarm2.type = 0; // triangle wave
+ bassHarm2.type = 1; // triangle wave
 
  bass.start(0);
  subBass.start(0);
@@ -656,8 +657,18 @@ function playLead8() {
 
                       if(o.y>0){
                         var a=o.y*1000
-      leadFilter.frequency.value =Math.floor(Math.random()*a)
+                        var b=o.x*500
+      leadFilter.frequency.value =a
+      bassFilter.frequency.value =a
     }
+    else{
+      leadFilter.frequency.value =0
+      bassFilter.frequency.value=0
+
+    }
+    if(o.x>0){
+    leadEchoFilter.frequency.value=o.x*140
+     }
   		});
 
 
