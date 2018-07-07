@@ -333,7 +333,12 @@ var paused= false;
 //-------------------------------------------------------------------------------------------
 function soundLoop() {
 
-
+//   slider.oninput = function() {
+//     mar =  (this.value)*2;
+//     console.log(mar)
+// bpm=mar
+//
+//   }
 
 
 	 if (paused==false) {
@@ -404,7 +409,7 @@ function startTone(mode,length1,o,g,d) {
 	 length = ((60/bpm)*(length1*1.2))*1000;
  }
  // HARMONY
- else if (mode==4) {
+ else if (mode==3) {
 	 g.gain.linearRampToValueAtTime(masterGain*0.2, now + 0.5);
 	 g.gain.linearRampToValueAtTime(masterGain*0.01, now + ((60/bpm)*5));
 	 g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*5.5));
@@ -435,7 +440,7 @@ function startTone(mode,length1,o,g,d) {
  // BASS HARMONY
  else if (mode==11) {
 	 g.gain.linearRampToValueAtTime(masterGain*(bassHarmVol-(0.2*0.25)), now + ((60/bpm)*2.5));
-	 g.gain.linearRampToValueAtTime(masterGain*0.0, now + ((60/bpm)*5));
+	 g.gain.linearRampToValueAtTime(masterGain*0.2, now + ((60/bpm)*5));
 
 	 length = ((60/bpm)*5.05)*1000;
  }
@@ -668,7 +673,9 @@ function playLead8() {
     }
     if(o.x>0){
     leadEchoFilter.frequency.value=o.x*140
-     }
+    bpm=o.x*90
+         }
+         else {}
   		});
 
 
