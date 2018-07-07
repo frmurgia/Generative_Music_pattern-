@@ -646,6 +646,22 @@ function harpLoop() {
 
 function playLead8() {
 
+  		gyro.startTracking(function(o) {
+  			var b = document.getElementById('example'),
+  					f = document.getElementById('features');
+  			f.innerHTML = gyro.getFeatures();
+  			b.innerHTML = "<p> x = " + o.x + "</p>" +
+  										"<p> y = " + o.y + "</p>" +
+  										"<p> z = " + o.z + "</p>"  ;
+
+                      if(o.x>0){
+                        var a=o.x*1000
+      leadFilter.frequency.value =Math.floor(Math.random()*a)
+    }
+  		});
+
+
+
  if (lead8[count8]==1) {
 
 	 // SWITCH MODE
