@@ -654,8 +654,8 @@ function playLead8() {
   										"<p> y = " + o.y + "</p>" +
   										"<p> z = " + o.z + "</p>"  ;
 
-                      if(o.x>0){
-                        var a=o.x*1000
+                      if(o.y>0){
+                        var a=o.y*1000
       leadFilter.frequency.value =Math.floor(Math.random()*a)
     }
   		});
