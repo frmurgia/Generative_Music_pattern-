@@ -673,9 +673,11 @@ function playLead8() {
     }
     if(o.x>0){
     leadEchoFilter.frequency.value=o.x*140
-    bpm=o.x*90
+  //  bpm=o.x*50
+  bpm=map(o.x, -3, 3, 80, 150);
          }
-         else {}
+         console.log(  map(o.x, -3, 3, 80, 150))
+
   		});
 
 
@@ -1114,3 +1116,6 @@ function silentNote() {
 }
 // JavaScript Document
 //-------------------------------------------------------------------------------------------
+function map (num, in_min, in_max, out_min, out_max) {
+  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}

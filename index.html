@@ -47,6 +47,13 @@
     transition: opacity .2s;
 }
 
+#example{
+color: white;
+font-family: "lora";
+
+}
+
+
 </style>
 
 </head>
@@ -70,8 +77,9 @@
      <span id="cinque" class="circle"></span>
 </div>
 
-<p>This Example just print's the raw accelerometer and gyro data. Will return null if no device information is found.</p>
-	<p>gyro.getFeatures: <span id="features"></span></p>
+<p></p>
+<div class="numeri"></div>
+	<p> <span id="features"></span></p>
 	<span id="example"></span>
 
 <script>
@@ -94,15 +102,7 @@ var slider = document.getElementById("myRange");
 soundSetup()
 
 
-		gyro.startTracking(function(o) {
-			var b = document.getElementById('example'),
-					f = document.getElementById('features');
-			f.innerHTML = gyro.getFeatures();
-			b.innerHTML = "<p> x = " + o.x + "</p>" +
-										"<p> y = " + o.y + "</p>" +
-										"<p> z = " + o.z + "</p>"  ;
-		});
- 
+
 </script>
 </body>
 </html>
