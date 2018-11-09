@@ -652,33 +652,6 @@ function harpLoop() {
 
 function playLead8() {
 
-  		gyro.startTracking(function(o) {
-  			var b = document.getElementById('example'),
-  					f = document.getElementById('features');
-  			f.innerHTML = gyro.getFeatures();
-  			b.innerHTML = "<p> x = " + o.x + "</p>" +
-  										"<p> y = " + o.y + "</p>" +
-  										"<p> z = " + o.z + "</p>"  ;
-
-                      if(o.y>0){
-                        var a=o.y*1000
-                        var b=o.x*500
-      leadFilter.frequency.value =a
-      bassFilter.frequency.value =a
-    }
-    else{
-      leadFilter.frequency.value =0
-      bassFilter.frequency.value=0
-
-    }
-    if(o.x>0){
-    leadEchoFilter.frequency.value=o.x*140
-  //  bpm=o.x*50
-  bpm=map(o.x, -3, 3, 80, 150);
-         }
-         console.log(  map(o.x, -3, 3, 80, 150))
-
-  		});
 
 
 
