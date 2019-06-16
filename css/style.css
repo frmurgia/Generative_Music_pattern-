@@ -1,0 +1,26 @@
+body {
+  background-color: #AAC9CE;
+  -webkit-animation: colorChange 20s linear 10s infinite;
+  animation: colorChange 120s linear 0s infinite;
+}
+E4D6CA
+@-webkit-keyframes colorChange {
+  0% {
+    background: -webkit-linear-gradient(left, #AAC9CE, #E4D6CA);
+    background: linear-gradient(to right, #AAC9CE, #E4D6CA);
+  }
+  1% {
+    background: -webkit-linear-gradient(left, #E4D6CA, #AAC9CE);
+    background: linear-gradient(to right, #AAC9CE, #E4D6CA);
+  }
+}
+@keyframes colorChange {
+  0% {
+    background: linear-gradient(to right, #AAC9CE, #E4D6CA);
+  }
+  1% {
+    background: linear-gradient(to right, #AAC9CE, #E4D6CA);
+  }
+
+  }
+}

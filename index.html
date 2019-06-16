@@ -1,108 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" >
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="initial-scale=1, user-scalable=no">
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-<script type="text/javascript" src=" js/Sound.js"></script>
-<script type="text/javascript" src=" js/gyro.min.js"></script>
-<style>
-/* #button{
-  height: 45px;
-   width: 45px;
-   background-color: #bbb;
-   border-radius: 50%;
-   display: inline-block;
-    */
-   .button {
-       display: flex;
-       justify-content: space-between;
-       border: none;
- outline:none;
-   }
+  <meta charset="UTF-8">
+  <title>D AN I ELE - MUR GI A</title>
+<script type="text/javascript" src=" lib/Sound.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/p5.sound.js"></script>
+ <script language="javascript" type="text/javascript" src="sketch1.js"></script>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:300" rel="stylesheet">
+      <link rel="stylesheet" href="css/style.css">
 
-   span.circle {
-     height: 45px;
-     width: 45px;
-     border-radius: 100%;
-     border: 14px solid #eee;
-     background:#ddd;
-     cursor: pointer;
-     transition: all 0.4s ease-in-out;
-     border: none;
-      outline:none;
-   }
 
-   .slider {
-    -webkit-appearance: none;
+</head><style>
+
+#info { position: absolute; bottom: 120; right: 0;
+         padding: 10px; font-size:14px; color: white;
+         font-family: 'IBM Plex Mono', monospace;
+         align:center;
+
+   }
+#defaultCanvas0{
+  position: relative;
+padding-right: 500px;
+}
+body{
+  border: 0px;
+  margin: 0px;
+}
+#canvas-basic {
+    position: absolute;
+    display: block;
     width: 100%;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
+ </style>
+<body>
+  <!-- <div id="info">
+  <b>\//\ DANIELE MURGIA \//\</b><br />
+  • Interaction   Designer • </BR>
+       •      sgt.murgia@gmail.com  •  <br/>
 
-#example{
-color: white;
-font-family: "lora";
+  <br/>
+  </div> -->
+  <!--No HTML-->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/granim/2.0.0/granim.js'></script>
 
-}
-
-
-</style>
-
-</head>
-<body bgcolor="#242b2b" >
-  <div class="slidecontainer">
-              <input type="range" min="0." max="1." value="0.1" class="slider" id="myRange">
-              <input type="range" min="1" max="1100" value="10" class="slider" id="myRange_2">
-
-        </div>
-
-
-
-    <canvas id="layerA" class="unselectable"></canvas>
-      <div id="keyLayer" tabindex='1'></div>
-
-      <div class="button">
-    <span id="uno" class="border-change circle"></span>
-    <span id="due" class="circle"></span>
-    <span id="tre" class="circle"></span>
-    <span id="quattro" class="circle"></span>
-     <span id="cinque" class="circle"></span>
-</div>
-
-<p></p>
-<div class="numeri"></div>
-	<p> <span id="features"></span></p>
-	<span id="example"></span>
-
+<!-- <canvas id="sketch-container"></canvas> -->
+</body>
 <script>
 
-
-$('#uno').on('touchstart click', function(){panPlay(0) });
-$('#due').on('touchstart click', function(){panPlay(1) });
-$('#tre').on('touchstart click', function(){panPlay(2) });
-$('#quattro').on('touchstart click', function(){panPlay(3) });
-$('#cinque').on('touchstart click', function(){panPlay(4) });
-
-var mar=0;
-var mar_1=0;
-var slider = document.getElementById("myRange");
-  var output_2 = document.getElementById("demo");
-  var slider2 = document.getElementById("myRange_2");
-    var output_2 = document.getElementById("demo");
+//soundSetup();
+function ciao()
+{
 
 
-soundSetup()
-
-
+  var granimInstance = new Granim({
+      element: '#sketch-container',
+      direction: 'left-right',
+      isPausedWhenNotInView: true,
+      states : {
+          "default-state": {
+              gradients: [
+                  ['#AAC9CE', '#E4D6CA'],
+                  ['#E4D6CA', '#AAC9CE'],
+                  ['#AAC9CE', '#E4D6CA']
+              ]
+          }
+      }
+  });
+}
 
 </script>
-</body>
 </html>

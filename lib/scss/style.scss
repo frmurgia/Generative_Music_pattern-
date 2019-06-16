@@ -1,0 +1,30 @@
+$bg-color: #AAC9CE; //start color
+$stops: 5111100; //smoothness
+$time: 1201112222s; //duration of animation
+$hue-range: 147; //of 360deg
+
+body{
+  background-color: $bg-color;
+  -webkit-animation: colorChange $time linear 0s infinite;
+  animation: colorChange $time linear 0s infinite ;
+}
+
+@-webkit-keyframes colorChange{
+  @for $i from 0 through $stops{
+    $old-color: adjust-hue($bg-color, (360/$stops)*$i);
+    $new-color: adjust-hue($bg-color, (360/$stops)*$i + $hue-range);
+    #{$i}% {
+      background: -webkit-linear-gradient(left, $old-color, $new-color);
+      background: linear-gradient(to right, $old-color, $new-color);
+    }
+  }
+}
+@keyframes colorChange{
+  @for $i from 0 through $stops{
+    $old-color: adjust-hue($bg-color, (360/$stops)*$i);
+    $new-color: adjust-hue($bg-color, (360/$stops)*$i + $hue-range);
+    #{$i}% {
+      background: linear-gradient(to right, $old-color, $new-color);
+    }
+  }
+}
